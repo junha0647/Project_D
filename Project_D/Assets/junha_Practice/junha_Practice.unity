@@ -770,7 +770,7 @@ MonoBehaviour:
   InvincibleTime: 0
   coolTime: 0.5
   pos: {fileID: 935946389}
-  boxSize: {x: 0.5, y: 1.25}
+  boxSize: {x: 0.75, y: 1.25}
 --- !u!212 &1856558928
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -28,10 +28,12 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rigid;
     CapsuleCollider2D capsule;
+    Animator animator;
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         capsule = GetComponent<CapsuleCollider2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -42,13 +44,13 @@ public class PlayerController : MonoBehaviour
         Attack();
     }
 
+    // === 기본 이동 로직 : 방향키 입력 === //
     void Move()
     {
-        // 방향키 입력 //
         float h = Input.GetAxisRaw("Horizontal");
         rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
-        // 이동속도 제한 //
+        // === 이동속도 제한 === //
         if (rigid.velocity.x > Speed)
         {
             rigid.velocity = new Vector2(Speed, rigid.velocity.y);
@@ -58,13 +60,13 @@ public class PlayerController : MonoBehaviour
             rigid.velocity = new Vector2(Speed * (-1), rigid.velocity.y);
         }
 
-        // 미끄럼 방지 //
+        // === 이동 시 미끄럼 방지 === //
         if (Input.GetButtonUp("Horizontal"))
         {
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.01f, rigid.velocity.y);
         }
 
-        // 좌우 반전 //
+        // === 좌우 반전 === //
         if (Input.GetAxis("Horizontal") < 0)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
@@ -74,8 +76,18 @@ public class PlayerController : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
 
-        // 대쉬 //
-        if(Input.GetKeyDown(KeyCode.D))
+        // === 걷기 애니메이션 === // 
+        if (Mathf.Abs(rigid.velocity.x) < 0.3)
+        { 
+            animator.SetBool("isRun", false); 
+        }
+        else
+        { 
+            animator.SetBool("isRun", true); 
+        }
+
+        // === 대쉬 === //
+        if (Input.GetKeyDown(KeyCode.D))
         {
             if(StaminaPoint > 50)
             {
@@ -86,25 +98,38 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("기력이 부족합니다.");
             }
-
         }
     }
 
+    // === 점프 === //
     void Jump()
     {
-        // 점프 //
         if (!Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.S))
         {
             if(!isJump)
             {
+                animator.SetBool("isJump", true);
+
                 rigid.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
             }
         }
 
         // 착지 시 jumpNum = 0 초기화 //
 
+        //// d //
+        //if (rigid.velocity.y <= 0)
+        //{
+        //    //Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
+        //    RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
+        //    if (rayHit.collider != null)
+        //    {
+        //        if (rayHit.distance < 0.8f)
+        //            animator.SetBool("isJump", false);
+        //    }
+        //}
 
-        // 하향 점프
+
+        // === 하향 점프 === //
         if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.S))
         {
             Debug.Log("하향 점프");
@@ -112,7 +137,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private float curTime;
+    float curTime;
     public float coolTime = 0.5f;
     public Transform pos;
     public Vector2 boxSize;
@@ -122,13 +147,18 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
+                animator.SetTrigger("atk1");
+
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
                 foreach(Collider2D collider in collider2Ds)
                 {
                     Debug.Log(collider.tag);
                     if(collider.tag == "Enemy")
                     {
+                        // 근접 공격 데미지 공식 (몬스터 방어력 - (공격력(Offense Power) * 1))
                         collider.GetComponent<EnemyController>().TakeDamage(1);
+                        // collider.GetComponent<EnemyController>().TakeDamage(OffensePower);
+                        // 해당 오브젝트 스크립트에서 함수 인자에서 def 빼주는 걸로 해결.
                     }
                 }
 
@@ -142,12 +172,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // === 플레이어 공격 범위 디버그 === //
     void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(pos.position, boxSize);
     }
 
+    // === 플레이어와 다른 오브젝트 상호작용 === //
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "doubleJumpItem")
