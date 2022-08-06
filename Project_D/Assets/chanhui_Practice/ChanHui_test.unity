@@ -480,7 +480,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 6
 --- !u!212 &1345875871
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2582,7 +2582,7 @@ GameObject:
   - component: {fileID: 1711325736}
   - component: {fileID: 1711325735}
   - component: {fileID: 1711325734}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2659,7 +2659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OffensePower: 0
   DefensePower: 0
-  HealthPoint: 0
+  HealthPoint: 50
   StaminaPoint: 100
   Speed: 5
   JumpForce: 5
@@ -2667,9 +2667,11 @@ MonoBehaviour:
   EvasionTime: 0
   KnockBack_distance: 0
   InvincibleTime: 0
+  stunDamageAmount: 1
   coolTime: 0.5
   pos: {fileID: 1259519524}
   boxSize: {x: 0.5, y: 1.25}
+  attackDamage: 5
 --- !u!212 &1711325738
 SpriteRenderer:
   m_ObjectHideFlags: 0

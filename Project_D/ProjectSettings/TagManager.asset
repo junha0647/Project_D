@@ -6,6 +6,7 @@ TagManager:
   tags:
   - doubleJumpItem
   - Enemy
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - UI
   - 
   - Platform
-  - 
-  - 
+  - Enemy
+  - Player
   - 
   - 
   - 

@@ -134,7 +134,8 @@ public class Entity : MonoBehaviour
 
         DamageHop(entityData.damageHopSpeed);
 
-        Instantiate(entityData.hitParticle, aliveGo.transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+        Debug.Log("¸ÂÀ½");
+        //Instantiate(entityData.hitParticle, aliveGo.transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
 
         if(attackDetails.position.x > aliveGo.transform.position.x)
         {

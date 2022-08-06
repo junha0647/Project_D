@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("공격력")][SerializeField] private float OffensePower;
     [Header("방어력")][SerializeField] private float DefensePower;
-    [Header("체력")][SerializeField] private int HealthPoint;
+    [Header("체력")][SerializeField] private float HealthPoint;
     [Header("기력")][SerializeField] private int StaminaPoint;
     [Header("이동속도")][SerializeField] private int Speed;
     [Header("점프력")][SerializeField] private int JumpForce;
@@ -29,6 +29,12 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rigid;
     CapsuleCollider2D capsule;
     Animator animator;
+
+    // 찬희가 건들인 부분
+    private AttackDetails attackDetails;
+    [SerializeField] private float stunDamageAmount = 1f;
+
+    //--------------------------------
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -141,6 +147,9 @@ public class PlayerController : MonoBehaviour
     public float coolTime = 0.5f;
     public Transform pos;
     public Vector2 boxSize;
+
+    // 찬희가 건드림
+    public float attackDamage = 5;
     void Attack()
     {
         if(curTime <= 0)
@@ -150,13 +159,19 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("atk1");
 
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+
+                attackDetails.position = pos.position;
+                attackDetails.damageAmount = attackDamage;
+                attackDetails.stunDamageAmount = stunDamageAmount;
+
                 foreach(Collider2D collider in collider2Ds)
                 {
+                    collider.transform.parent.SendMessage("Damage", attackDetails);
                     Debug.Log(collider.tag);
                     if(collider.tag == "Enemy")
                     {
                         // 근접 공격 데미지 공식 (몬스터 방어력 - (공격력(Offense Power) * 1))
-                        collider.GetComponent<EnemyController>().TakeDamage(1);
+                        //collider.GetComponentInChildren<Enemy1>().Damage(attackDetails);
                         // collider.GetComponent<EnemyController>().TakeDamage(OffensePower);
                         // 해당 오브젝트 스크립트에서 함수 인자에서 def 빼주는 걸로 해결.
                     }
@@ -188,5 +203,10 @@ public class PlayerController : MonoBehaviour
             canDoubleJump = true;
             Destroy(collision.gameObject);
         }
+    }
+
+    private void Damage(AttackDetails details)
+    {
+        HealthPoint -= details.damageAmount;
     }
 }

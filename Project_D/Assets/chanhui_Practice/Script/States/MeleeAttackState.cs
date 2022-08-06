@@ -57,4 +57,5 @@ public class MeleeAttackState : AttackState
             collider.transform.SendMessage("Damage", attackDetails);
         }
     }
+
 }
