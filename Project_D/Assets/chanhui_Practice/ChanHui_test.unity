@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityData: {fileID: 11400000, guid: 84b0a782339973d4cbfc58c732786776, type: 2}
+  PlayerTr: {fileID: 1711325739}
+  EnemyTr: {fileID: 1345875867}
   wallCheck: {fileID: 711303243}
   ledgeCheck: {fileID: 1854097936}
   playerCheck: {fileID: 103188984}

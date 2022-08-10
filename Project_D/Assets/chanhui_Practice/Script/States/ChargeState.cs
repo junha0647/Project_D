@@ -33,7 +33,8 @@ public class ChargeState : State
         base.Enter();
 
         isChargeTimeOver = false;
-        entity.SetVelocity(stateData.chargeSpeed);
+        //entity.SetVelocity(stateData.chargeSpeed);
+        //entity.SetVel(stateData.chargeSpeed);
     }
 
     public override void Exit()
@@ -54,6 +55,6 @@ public class ChargeState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
+        entity.SetVel(stateData.chargeSpeed);
     }
 }

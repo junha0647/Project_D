@@ -16,6 +16,10 @@ public class Entity : MonoBehaviour
     public int lastDamageDirection { get; private set; }
 
     [SerializeField]
+    private Transform PlayerTr;
+    [SerializeField]
+    private Transform EnemyTr;
+    [SerializeField]
     private Transform wallCheck;
     [SerializeField]
     private Transform ledgeCheck;
@@ -70,6 +74,12 @@ public class Entity : MonoBehaviour
     {
         velocityWorkspace.Set(facingDirection * velocity, rb.velocity.y);
         rb.velocity = velocityWorkspace;
+    }
+
+    public virtual void SetVel(float speed)
+    {
+        velocityWorkspace = new Vector2(PlayerTr.position.x, EnemyTr.position.y);
+        EnemyTr.position = Vector2.MoveTowards(EnemyTr.position, velocityWorkspace, Time.deltaTime * speed);
     }
 
     public virtual void SetVelocity(float velocity, Vector2 angle, int direction)
