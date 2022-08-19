@@ -33,6 +33,9 @@ public class E2_PlayerDetectedState : PlayerDetectedState
         if(performCloseRangeAction)
         {
             stateMachine.ChangeState(enemy.meleeAttackState);
+        }else if(!isPlayerInMaxAgroRange)
+        {
+            stateMachine.ChangeState(enemy.lookForPlayerState);
         }
     }
 
