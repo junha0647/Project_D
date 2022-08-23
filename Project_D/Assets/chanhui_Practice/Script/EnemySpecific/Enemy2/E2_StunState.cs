@@ -34,7 +34,8 @@ public class E2_StunState : StunState
             if(isPlayerInMinAgroRange)
             {
                 stateMachine.ChangeState(enemy.playerDetectedState);
-            }else
+            }
+            else
             {
                 stateMachine.ChangeState(enemy.lookForPlayerState);
             }
