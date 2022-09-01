@@ -164,11 +164,11 @@ public class PlayerController : MonoBehaviour
                 attackDetails.damageAmount = attackDamage;
                 attackDetails.stunDamageAmount = stunDamageAmount;
 
-                foreach(Collider2D collider in collider2Ds)
+                foreach (Collider2D collider in collider2Ds)
                 {
                     collider.transform.parent.SendMessage("Damage", attackDetails);
                     Debug.Log(collider.tag);
-                    if(collider.tag == "Enemy")
+                    if (collider.tag == "Enemy")
                     {
                         // 근접 공격 데미지 공식 (몬스터 방어력 - (공격력(Offense Power) * 1))
                         //collider.GetComponentInChildren<Enemy1>().Damage(attackDetails);
