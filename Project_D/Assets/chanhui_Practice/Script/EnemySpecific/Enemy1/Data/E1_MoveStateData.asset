@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae003d0ef32886447958cb338b47c921, type: 3}
   m_Name: E1_MoveStateData
   m_EditorClassIdentifier: 
-  movementSpeed: 4
+  movementSpeed: 2

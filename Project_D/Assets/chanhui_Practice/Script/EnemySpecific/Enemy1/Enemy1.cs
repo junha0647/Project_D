@@ -39,7 +39,7 @@ public class Enemy1 : Entity
 
         moveState = new E1_MoveState(this, stateMachine, "move", moveStateData, this);
         idleState = new E1_IdleState(this, stateMachine, "idle", idleStateData, this);
-        playerDetectedState = new E1_PlayerDetectedState(this, stateMachine, "playerDetected", playerSetectedData, this);
+        playerDetectedState = new E1_PlayerDetectedState(this, stateMachine, "charge", playerSetectedData, this);
         chargeState = new E1_ChargeState(this, stateMachine, "charge", chargeStateData, this);
         lookForPlayerState = new E1_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerStateData, this);
         meleeAttackState = new E1_MeleeAttackState(this, stateMachine, "meleeAttack", meleeAttackPosition, meleeAttackStateData, this);
