@@ -84,18 +84,18 @@ public class PlayerController : MonoBehaviour
 
         // === 걷기 애니메이션 === // 
         if (Mathf.Abs(rigid.velocity.x) < 0.3)
-        { 
-            animator.SetBool("isRun", false); 
+        {
+            animator.SetBool("isRun", false);
         }
         else
-        { 
-            animator.SetBool("isRun", true); 
+        {
+            animator.SetBool("isRun", true);
         }
 
         // === 대쉬 === //
         if (Input.GetKeyDown(KeyCode.D))
         {
-            if(StaminaPoint > 50)
+            if (StaminaPoint > 50)
             {
                 Debug.Log("대쉬");
                 StaminaPoint -= 50;
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.S))
         {
-            if(!isJump)
+            if (!isJump)
             {
                 animator.SetBool("isJump", true);
 
@@ -122,17 +122,21 @@ public class PlayerController : MonoBehaviour
 
         // 착지 시 jumpNum = 0 초기화 //
 
-        //// d //
-        //if (rigid.velocity.y <= 0)
-        //{
-        //    //Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
-        //    RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
-        //    if (rayHit.collider != null)
-        //    {
-        //        if (rayHit.distance < 0.8f)
-        //            animator.SetBool("isJump", false);
-        //    }
-        //}
+        if (rigid.velocity.y <= 0)
+        {
+            Vector2 frontVec = new Vector2(rigid.position.x + rigid.velocity.x * 0.025f, rigid.position.y);
+            Debug.DrawRay(frontVec, Vector3.down, new Color(1, 0, 0));
+            RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1.5f, LayerMask.GetMask("Platform"));
+
+            if (rayHit.collider != null)
+            {
+                if (rayHit.distance < 1f)
+                {
+                    animator.SetBool("isJump", false);
+                }
+            }
+            // 여기서 주의할 점은 rayHit의 2f와 distance의 범위(1.2f)를 잘 조절해야 함.
+        }
 
 
         // === 하향 점프 === //
@@ -147,7 +151,7 @@ public class PlayerController : MonoBehaviour
     public float coolTime = 0.5f;
     public Transform pos;
     public Vector2 boxSize;
-
+    
     // 찬희가 건드림
     public float attackDamage = 5;
     void Attack()
@@ -171,7 +175,7 @@ public class PlayerController : MonoBehaviour
                     if (collider.tag == "Enemy")
                     {
                         // 근접 공격 데미지 공식 (몬스터 방어력 - (공격력(Offense Power) * 1))
-                        //collider.GetComponentInChildren<Enemy1>().Damage(attackDetails);
+                        // collider.GetComponentInChildren<Enemy1>().Damage(attackDetails);
                         // collider.GetComponent<EnemyController>().TakeDamage(OffensePower);
                         // 해당 오브젝트 스크립트에서 함수 인자에서 def 빼주는 걸로 해결.
                     }
@@ -186,7 +190,7 @@ public class PlayerController : MonoBehaviour
             curTime -= Time.deltaTime;
         }
     }
-
+    
     // === 플레이어 공격 범위 디버그 === //
     void OnDrawGizmos()
     {
@@ -197,7 +201,7 @@ public class PlayerController : MonoBehaviour
     // === 플레이어와 다른 오브젝트 상호작용 === //
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "doubleJumpItem")
+        if (collision.gameObject.tag == "doubleJumpItem")
         {
             Debug.Log("더블 점프 가능해짐");
             canDoubleJump = true;
