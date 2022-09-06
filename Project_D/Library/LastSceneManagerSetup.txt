@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/junha_Practice/junha_Practice.unity
+- path: Assets/Map/Map1.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
