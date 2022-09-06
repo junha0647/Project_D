@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Map/Map1.unity
+- path: Assets/chanhui_Practice/ChanHui_test.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

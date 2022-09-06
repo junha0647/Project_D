@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &460225140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 460225141}
+  m_Layer: 8
+  m_Name: RangedAttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &460225141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460225140}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.52, y: 0.19, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6186475696034000704}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6186475695762942713
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +127,7 @@ Transform:
   - {fileID: 6186475696391304577}
   - {fileID: 6186475696014470377}
   - {fileID: 6186475696451064134}
+  - {fileID: 460225141}
   m_Father: {fileID: 6186475696306248047}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -278,7 +309,9 @@ MonoBehaviour:
   stunStateData: {fileID: 11400000, guid: b0593feeb9cec034aabd8c0f6d4984b1, type: 2}
   deadStateData: {fileID: 11400000, guid: 9fe2f4519e8c0a14cb89a52453e44354, type: 2}
   dodgeStateData: {fileID: 11400000, guid: d1e306c5261d0074090eb8fc23a15186, type: 2}
+  rangeAttackStateData: {fileID: 11400000, guid: 40ec7f3eb63a9d14f8c7ca6b29de59af, type: 2}
   meleeAttackPosition: {fileID: 6186475696451064134}
+  rangedAttackPosition: {fileID: 460225141}
 --- !u!1 &6186475696391304638
 GameObject:
   m_ObjectHideFlags: 0
